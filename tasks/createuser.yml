@@ -1,0 +1,40 @@
+---
+- name: "gather facts"
+  ansible.builtin.setup:
+    gather_subset: all
+
+- name: "create ansible user: {{ username }}"
+  become: yes
+  ansible.builtin.user:
+    name: "{{ username }}"
+    create_home: yes
+    state: present
+    shell: /bin/bash
+  register: newuser
+
+- name: "Ensure .ssh directory"
+  ansible.builtin.file:
+    path: /home/{{ username }}/.ssh
+    state: directory
+    mode: 0700
+    owner: "{{ username }}"
+
+- name: Ensure Authorized Keys
+  become: yes
+  ansible.builtin.blockinfile:
+    path: "/home/{{ username }}/.ssh/authorized_keys"
+    block: "{{ ansible_user_pubkeys }}"
+    owner: "{{ username }}"
+    mode: 0600
+    create: yes
+    marker: "<!-- {mark} ANSIBLE MANAGED SSH ansible_user_pubkeys -->"
+  when: ansible_user_pubkeys is defined
+  notify: restart sshd
+
+- name: "Allow sudo for user: {{ username }}"
+  become: yes
+  ansible.builtin.copy:
+    content: "{{ username }} {{ sudoers_line }}"
+    dest: "/etc/sudoers.d/{{ username }}"
+    mode: 0600
+  when: sudoers_line

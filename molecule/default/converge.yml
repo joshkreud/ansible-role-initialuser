@@ -1,0 +1,8 @@
+---
+- name: Converge
+  gather_facts: no
+  hosts: all
+  vars:
+    ansible_user_pubkeys: "TestPubkey"
+  roles:
+    - role: joshkreud.initialuser

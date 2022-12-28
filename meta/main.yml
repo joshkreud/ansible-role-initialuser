@@ -1,0 +1,22 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: initialuser
+  author: joshkreud
+  description: Sets SSH Authorized keys for ansible_user. If that user isnt connectable, connect with initial_user and create ansible_user
+  issue_tracker_url: https://github.com/OpenJKSoftware/ansible-role-initialuser/issues
+  company: "Joshua Kreuder - Software"
+  license: "MIT"
+  min_ansible_version: "2.10"
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - server
+    - tools
