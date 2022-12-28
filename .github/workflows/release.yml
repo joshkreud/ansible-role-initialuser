@@ -13,10 +13,6 @@ name: Release
 env:
   ROLE_NAME: "joshkreud.initialuser"
 
-defaults:
-  run:
-    working-directory: ${{ env.ROLE_NAME }}
-
 jobs:
   release:
     name: Release
@@ -24,8 +20,6 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
-        with:
-          path: ${{ env.ROLE_NAME }}
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
