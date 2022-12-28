@@ -4,13 +4,13 @@
   ansible.builtin.set_fact:
     username: "{{ ansible_user }}"
 
-- name: "Check if User '{{ ansible_user }}' exists"
+- name: "Check if User Exists: {{ ansible_user }}"
   when: ansible_connection !='local'
   vars:
     ansible_ssh_pass: "" #Clear password variables if they were supplied
     ansible_become_pass: ""
   block:
-    - name: "Wait for Connection on User '{{ ansible_user }}' --> may fail when user needs init"
+    - name: "Wait for Connection on User: {{ ansible_user }}"
       ansible.builtin.wait_for_connection:
         timeout: 2
     - name: Disable Init
@@ -48,7 +48,7 @@
     ansible_ssh_pass: ""
     ansible_become_pass: ""
 
-- name: reset ssh connection
+- name: Reset ssh connection
   ansible.builtin.meta: reset_connection
 
 - name: Ensure Authorized Keys (in case of update)
@@ -60,7 +60,7 @@
     create: yes
     marker: "<!-- {mark} ANSIBLE MANAGED SSH ansible_user_pubkeys -->"
   when: ansible_user_pubkeys is defined
-  notify: restart sshd
+  notify: Restart sshd
 
 - name: "Set User Password for {{ ansible_user }}"
   when: ansible_user_password is defined

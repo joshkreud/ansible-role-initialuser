@@ -1,9 +1,9 @@
 ---
-- name: "gather facts"
+- name: "Gather facts"
   ansible.builtin.setup:
     gather_subset: all
 
-- name: "create ansible user: {{ username }}"
+- name: "Create ansible user: {{ username }}"
   become: yes
   ansible.builtin.user:
     name: "{{ username }}"
@@ -29,7 +29,7 @@
     create: yes
     marker: "<!-- {mark} ANSIBLE MANAGED SSH ansible_user_pubkeys -->"
   when: ansible_user_pubkeys is defined
-  notify: restart sshd
+  notify: Restart sshd
 
 - name: "Allow sudo for user: {{ username }}"
   become: yes
