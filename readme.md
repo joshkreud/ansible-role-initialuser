@@ -1,13 +1,13 @@
-# Initial User
+# Initial User Ansible Role
+
+This role, checks if it can connect with the Ansible User and update SSH authorized keys for it.
+If it cannot connect, it will try to connect with `initial_user` and create `ansible_user`.
+
+## Usage
 
 To use this role, `gather_facts` must be disabled at playbook level.
 
-This role, checks if it can connect with the Ansible User.
-If not, it will connect with `initial_user`, create `ansible_user`.
-
-## Variables
-
-| Variable                | Usage                                                                                                                   |
+| Variable                | Effect                                                                                                                   |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `initial_user`          | The user used for connection, if `ansible_user` doesn't work. The user will be deleted afterwards. (Defaults to `root`) |
 | `ansible_user`          | The normal ansible connection user                                                                                      |
