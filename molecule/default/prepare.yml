@@ -5,16 +5,20 @@
   pre_tasks:
     - name: Update apt cache.
       become: yes
-      apt: update_cache=yes cache_valid_time=600
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 600
       when: ansible_os_family == 'Debian'
 
     - name: Ensure SSH Istalled
       become: yes
-      apt: name=ssh state=present
+      ansible.builtin.apt:
+        name: ssh
+        state: present
 
     - name: Wait for systemd to complete initialization. # noqa 303
       become: yes
-      command: systemctl is-system-running
+      ansible.builtin.command: systemctl is-system-running
       register: systemctl_status
       until: >
         'running' in systemctl_status.stdout or
@@ -24,4 +28,3 @@
       when: ansible_service_mgr == 'systemd'
       changed_when: false
       failed_when: systemctl_status.rc > 1
-

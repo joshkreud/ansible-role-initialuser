@@ -7,7 +7,7 @@
 - name: "Check if User Exists: {{ ansible_user }}"
   when: ansible_connection !='local'
   vars:
-    ansible_ssh_pass: "" #Clear password variables if they were supplied
+    ansible_ssh_pass: "" # Clear password variables if they were supplied
     ansible_become_pass: ""
   block:
     - name: "Wait for Connection on User: {{ ansible_user }}"
