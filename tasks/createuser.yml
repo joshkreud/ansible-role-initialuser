@@ -13,6 +13,7 @@
   register: newuser
 
 - name: "Ensure .ssh directory"
+  become: yes
   ansible.builtin.file:
     path: /home/{{ username }}/.ssh
     state: directory
