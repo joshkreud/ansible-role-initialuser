@@ -30,7 +30,7 @@ jobs:
         run: pip3 install ansible-core
 
       - name: Trigger a new import on Galaxy.
-        run: >-
+        run: |
           NAMESPACE=$(echo ${{ github.repository }} | cut -d/ -f1)
           NAME=$(echo ${{ github.repository }} | cut -d/ -f2)
           echo "NAMESPACE: $NAMESPACE" "NAME: $NAME"
