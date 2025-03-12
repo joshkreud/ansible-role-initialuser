@@ -1,0 +1,10 @@
+.ansible
+.DS_Store
+.pyc
+__pycache__
+*.egg-info
+*.egg
+*.log
+*.pyo
+*.pyd
+
