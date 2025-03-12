@@ -39,22 +39,26 @@ jobs:
     strategy:
       matrix:
         distro:
+          - ubuntu2404
           - ubuntu2204
-          - ubuntu2004
+          - debian12
           - debian11
-          - debian10
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up Python 3.
-        uses: actions/setup-python@v2
+      - name: Install UV
+        uses: astral-sh/setup-uv@v2
         with:
-          python-version: "3.x"
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
 
-      - name: Install test dependencies.
-        run: pip3 install ansible molecule-docker docker
+      - name: Set up Python 3.12
+        run: uv python install 3.12
+
+      - name: Install Project Dependencies
+        run: uv sync --all-extras
 
       - name: Run Molecule tests.
         run: molecule test
