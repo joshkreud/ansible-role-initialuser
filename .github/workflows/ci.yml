@@ -61,7 +61,7 @@ jobs:
         run: uv sync --all-extras
 
       - name: Run Molecule tests.
-        run: molecule test
+        run: uv run molecule test
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
