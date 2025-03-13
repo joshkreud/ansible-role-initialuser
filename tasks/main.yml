@@ -12,7 +12,7 @@
   block:
     - name: "Wait for Connection on User: {{ ansible_user }}"
       ansible.builtin.wait_for_connection:
-        timeout: 10
+        timeout: 20
         connect_timeout: 2
     - name: Disable Init
       ansible.builtin.set_fact:
