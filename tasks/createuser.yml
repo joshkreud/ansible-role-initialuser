@@ -35,7 +35,11 @@
 - name: "Allow sudo for user: {{ username }}"
   become: yes
   ansible.builtin.copy:
-    content: "{{ username }} {{ sudoers_line }}"
+    # sudo-rs (default sudo in Ubuntu 26.04) rejects a sudoers file without a final newline.
+    content: "{{ username }} {{ sudoers_line | trim }}\n"
     dest: "/etc/sudoers.d/{{ username }}"
-    mode: 0600
+    owner: root
+    group: root
+    mode: 0440
+    validate: visudo -cf %s
   when: sudoers_line

@@ -1,0 +1,20 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Read the sudoers file for the ansible user
+      become: yes
+      ansible.builtin.slurp:
+        src: /etc/sudoers.d/deployer
+      register: initialuser_sudoers
+
+    - name: Check that the sudoers file ends with a newline
+      ansible.builtin.assert:
+        that:
+          - (initialuser_sudoers.content | b64decode) == "deployer ALL=(ALL) NOPASSWD: ALL\n"
+
+    - name: Check the complete sudoers configuration
+      become: yes
+      ansible.builtin.command: visudo -c
+      changed_when: false
