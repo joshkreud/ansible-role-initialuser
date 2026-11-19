@@ -42,7 +42,6 @@ jobs:
           - ubuntu2404
           - ubuntu2204
           - debian12
-          - debian11
 
     steps:
       - name: Check out the codebase.
